@@ -22,11 +22,24 @@ class RacesRepository {
       if(ref.read(raceServiceProvider).useDate){
         races = races.where((element) => DateTime.parse(element.date).isAfter(ref.read(raceServiceProvider).from) && DateTime.parse(element.date).isBefore(ref.read(raceServiceProvider).to)).toList();
       }
+      print(ref.read(raceServiceProvider).useLocation);
       if(ref.read(raceServiceProvider).useLocation){
-        races = races.where((element) => ref.read(raceServiceProvider).locations[element.country] ?? false).toList();
+        print('inside if condition');
+        races.forEach((element) {
+          print(element.country);
+          print(ref.read(raceServiceProvider).locations.firstWhere((location) => location.key == element.country));
+          print('______________________');
+        });
+        races = races.where((element) => ref.read(raceServiceProvider).locations.firstWhere((location) => location.key == element.country).value).toList();
       }
       if(ref.read(raceServiceProvider).useDistance){
         races = races.where((element) => element.distances.split(',').map((e) => double.parse(e)).toList().any((element) => element >= ref.read(raceServiceProvider).distanceRange.start && element <= ref.read(raceServiceProvider).distanceRange.end)).toList();
+      }
+      if(races.isEmpty){
+        return [];
+      }
+      if(races.isNotEmpty && races.length < 10){
+        return races.sublist(pageKey * kPageSize);
       }
       return races.sublist(pageKey * kPageSize, (pageKey + 1) * kPageSize);
     } catch (_) {

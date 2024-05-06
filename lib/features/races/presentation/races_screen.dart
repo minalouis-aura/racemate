@@ -131,6 +131,7 @@ class _RacesScreenState extends ConsumerState<RacesScreen> {
                   children: [
                     FilterAttribute(
                         label: 'Type',
+                        isEnabled: ref.watch(raceServiceProvider).useType,
                         onTap: () async {
                            BottomSheetHelper.gShowModalBottomSheet(context: context, content: const TypeFilter(),).then((value){
                              _pagingController.refresh();
@@ -139,20 +140,32 @@ class _RacesScreenState extends ConsumerState<RacesScreen> {
                            });
                         }),
                     8.0.hSpace,
-                    FilterAttribute(label: 'Location', onTap: () async {
+                    FilterAttribute(label: 'Location',
+                        isEnabled: ref.watch(raceServiceProvider).useLocation,
+                        onTap: () async {
                        BottomSheetHelper.gShowModalBottomSheet(context: context, content: const LocationFilter(),).then((value){
+                         _pagingController.refresh();
+                         _fetchPage(_pagingController.firstPageKey);
                          setState(() {});
                        });
                     }),
                     8.0.hSpace,
-                    FilterAttribute(label: 'Distance', onTap: () async {
+                    FilterAttribute(label: 'Distance',
+                        isEnabled: ref.watch(raceServiceProvider).useDistance,
+                        onTap: () async {
                        BottomSheetHelper.gShowModalBottomSheet(context: context, content: const DistanceFilter(),).then((value){
+                         _pagingController.refresh();
+                         _fetchPage(_pagingController.firstPageKey);
                          setState(() {});
                        });
                     }),
                     8.0.hSpace,
-                    FilterAttribute(label: 'Date', onTap: () async {
+                    FilterAttribute(label: 'Date',
+                        isEnabled: ref.watch(raceServiceProvider).useDate,
+                        onTap: () async {
                        BottomSheetHelper.gShowModalBottomSheet(context: context, content: const DateFilter(),).then((value){
+                         _pagingController.refresh();
+                         _fetchPage(_pagingController.firstPageKey);
                          setState(() {});
                        });
                     }),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:racemate/constants/dimensions.dart';
 import 'package:racemate/constants/icons.dart';
 import 'package:racemate/features/races/domain/race.dart';
@@ -75,7 +76,7 @@ class RaceCard extends StatelessWidget {
                               children: [
                                 Image.asset(CustomIcons.calender, width: 16.0, height: 16.0,),
                                 4.0.hSpace,
-                                Text(race.date),
+                                Text(DateFormat.yMMMd().format(DateTime.parse(race.date))),
                               ],
                             ),
                             5.0.vSpace,

@@ -25,7 +25,7 @@ class _DateFilterState extends ConsumerState<DateFilter> {
         children: [
           Row(
             children: [
-              Spacer(),
+              const Spacer(),
               Expanded(
                   flex: 3, child: Text('race date'.toUpperCase(), style: 22.0.boldStyle.copyWith(color: '#000A35'.color), textAlign: TextAlign.center,)),
               Expanded(child: GestureDetector(onTap: (){
@@ -38,7 +38,7 @@ class _DateFilterState extends ConsumerState<DateFilter> {
           ),
           16.0.vSpace,
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text('from'.toUpperCase(), style: 16.0.regularStyle.copyWith(color: '#1C325F'.color),),
           ),
           4.0.vSpace,
@@ -66,19 +66,20 @@ class _DateFilterState extends ConsumerState<DateFilter> {
               if(date != null){
                 setState(() {
                   ref.read(raceServiceProvider).from = date;
+                  ref.read(raceServiceProvider).to = date.add(const Duration(days: 1));
                 });
               }
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0),
               decoration: BoxDecoration(
                 borderRadius: 8.0.allCircularBorder,
                 border: Border.all(color: '#F77F00'.color),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.calendar_month),
+                  const Icon(Icons.calendar_month),
                   4.0.hSpace,
                   Text(DateFormat.yMMMEd().format(ref.watch(raceServiceProvider).from)),
                 ],
@@ -87,7 +88,7 @@ class _DateFilterState extends ConsumerState<DateFilter> {
           ),
           21.0.vSpace,
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Text('to'.toUpperCase(), style: 16.0.regularStyle.copyWith(color: '#1C325F'.color),),
           ),
           4.0.vSpace,
@@ -119,15 +120,15 @@ class _DateFilterState extends ConsumerState<DateFilter> {
               }
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.0),
-              padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0),
+              margin: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0),
               decoration: BoxDecoration(
                 borderRadius: 8.0.allCircularBorder,
                 border: Border.all(color: '#F77F00'.color),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.calendar_month),
+                  const Icon(Icons.calendar_month),
                   4.0.hSpace,
                   Text(DateFormat.yMMMEd().format(ref.watch(raceServiceProvider).to)),
                 ],

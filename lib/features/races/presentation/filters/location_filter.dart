@@ -50,14 +50,14 @@ class _LocationFilterState extends ConsumerState<LocationFilter> {
           34.5.vSpace,
           ...ref
             .read(raceServiceProvider)
-            .locations
-            .keys.where((element) => element.toLowerCase().contains(_searchController.text.toLowerCase()))
+            .locations.where((element) => element.key.toLowerCase().contains(_searchController.text.toLowerCase()))
             .map((e) => CheckboxListTile(
-                  value: ref.read(raceServiceProvider).locations[e],
-                  title: Text(e),
+                  value: e.value,
+                  title: Text(e.label),
                   onChanged: (value) {
                     setState(() {
-                      ref.read(raceServiceProvider).locations[e] = value!;
+                      int index = ref.read(raceServiceProvider).locations.indexWhere((element) => element.key == e.key);
+                      ref.read(raceServiceProvider).locations[index].value = value!;
                     });
                   },
                 )),
@@ -73,11 +73,16 @@ class _LocationFilterState extends ConsumerState<LocationFilter> {
                   fixedSize: Size.fromWidth(MediaQuery.of(context).size.width)
               ),
               onPressed: () {
-
-                setState(() {
-                  ref.read(raceServiceProvider).useLocation = true;
-                  Navigator.pop(context);
-                });
+                if(ref.read(raceServiceProvider).locations.any((element) => element.value)){
+                  setState(() {
+                    ref.read(raceServiceProvider).useLocation = true;
+                  });
+                }else{
+                  setState(() {
+                    ref.read(raceServiceProvider).useLocation = false;
+                  });
+                }
+                Navigator.pop(context);
               },
               child: Text('Done', style: 14.0.boldStyle.copyWith(color: '#1C325F'.color),),
             ),

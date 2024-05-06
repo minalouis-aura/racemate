@@ -5,8 +5,9 @@ import 'package:racemate/utilities/extensions/string.dart';
 
 class FilterAttribute extends ConsumerStatefulWidget {
   final String label;
+  final bool isEnabled;
   final void Function() onTap;
-  const FilterAttribute({super.key, required this.label, required this.onTap});
+  const FilterAttribute({super.key, required this.label, required this.isEnabled, required this.onTap});
 
   @override
   ConsumerState createState() => _FilterAttributeState();
@@ -20,14 +21,15 @@ class _FilterAttributeState extends ConsumerState<FilterAttribute> {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         decoration: BoxDecoration(
+          color: widget.isEnabled ? '#1C325F'.color : null,
           borderRadius: 8.0.allCircularBorder,
           border: Border.all(color: '#1C325F'.color),
         ),
         child: Row(
           children: [
-            Text(widget.label, style: 15.0.mediumStyle.copyWith(color: '#1C325F'.color),),
+            Text(widget.label, style: 15.0.mediumStyle.copyWith(color: widget.isEnabled ? Colors.white : '#1C325F'.color),),
             4.0.hSpace,
-            Icon(Icons.keyboard_arrow_down, color: '#1C325F'.color,)
+            Icon(Icons.keyboard_arrow_down, color: widget.isEnabled ? Colors.white : '#1C325F'.color,)
           ],
         ),
       ),

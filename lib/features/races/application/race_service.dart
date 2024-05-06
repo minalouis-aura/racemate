@@ -8,7 +8,7 @@ class RaceService{
 
   RaceService({required this.ref});
 
-  Map<String, bool> locations = {};
+  List<Locations> locations = [];
   String? typeFilter;
   RangeValues distanceRange = const RangeValues(0, 200);
   DateTime from = DateTime.now();
@@ -42,8 +42,8 @@ class RaceService{
     to = DateTime.now();
     distanceRange = const RangeValues(0, 200);
     typeFilter = null;
-    for (var element in locations.keys) {
-      locations[element] = false;
+    for (var element in locations) {
+      element.value = false;
     }
   }
 
@@ -51,9 +51,19 @@ class RaceService{
     if(locations.isEmpty) {
       Map<String, List> countryOccurrences = groupBy(races, (obj) => obj.country);
       for (RaceModel e in races) {
-        locations.addAll({'${e.country} (${countryOccurrences[e.country]?.length ?? 0})': false});
+        if(!locations.any((element) => element.key == e.country)) {
+          locations.add(Locations(e.country, '${e.country} (${countryOccurrences[e.country]?.length ?? 0})', false));
+        }
       }}
   }
 }
 
 final raceServiceProvider = Provider((ref) => RaceService(ref: ref));
+
+class Locations{
+  final String key;
+  final String label;
+  bool value;
+
+  Locations(this.key, this.label, this.value);
+}
